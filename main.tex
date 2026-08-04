@@ -1,0 +1,33 @@
+
+% Accessibility and PDF setup.
+%\RequirePackage{pdfmanagement}
+
+\documentclass[draft]{article}
+\input{main.preamble.tex}
+
+\title{Somewhere over the rainbow}
+
+\author{%
+	\authorship{Judy Garland}{Grand Rapids, Minnesota}
+	\authorship{Harold Arlen}{Buffalo, New York}
+	\authorship{\correspondence Yip Harburg}{New York, New York}
+}
+
+\date{draft --- last edited \today}
+
+
+\begin{document}
+	\maketitle
+	\begin{abstract}\noindent\textbf{\textsc{Abstract.}}
+		``Over the Rainbow,'' also known as ``Somewhere Over the Rainbow,'' is a ballad by Harold Arlen with lyrics by Yip Harburg. It was written for the 1939 film \emph{The Wizard of Oz}, in which it was sung by actress Judy Garland in her starring role as Dorothy Gale.
+    \end{abstract}
+    \vspace{-2em}
+    {\setstretch{1}\tableofcontents}
+    
+	\section{Introduction}\label{section:introduction}
+		\input{sections/introduction}
+	
+	\printbibliography[heading=bibintoc]
+\end{document}
+ 
+ 
