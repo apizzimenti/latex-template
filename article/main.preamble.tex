@@ -103,6 +103,9 @@
 %%%% COLORS                                                                 %%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\definecolor{almond}{rgb}{0.94, 0.87, 0.8}
+\definecolor{antiquewhite}{rgb}{0.98, 0.92, 0.84}
+
 % IBM Design Library palette. (Colorblind-safe) %% https://tinyurl.com/27azp7vh
 \definecolor{ibm-gold}{HTML}{ffb000}
 \definecolor{ibm-orange}{HTML}{fe6100}
@@ -159,11 +162,13 @@
 %%%% ENVIRONMENTS                                                           %%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage{amsthm}
+\usepackage[breakable,skins]{tcolorbox}
 \usepackage[thmtools-compat]{keytheorems}
 
 % Define standard heights, widths, etc.
-\def\spaceabove{0.25\parskip}		% thmtools above
+\def\spaceabove{0.5\parskip}		% thmtools above
 \def\spacebelow{0.25\parskip}		% thmtools below
+\def\boxpadding{0.5em}
 
 \def\postheadhook{\strut}
 \def\prefoothook{\looseness=-1\strut}
@@ -172,128 +177,117 @@
 \def\transparency{15}				% transparency
 
 
-\declaretheoremstyle[
+% Default tcolorbox styles that do some of the inheritance for us.
+\tcbset{
+	default/.style={
+		enhanced,
+		frame hidden,
+		sharp corners,
+		left=0.5em,
+		right=0.5em,
+		bottom=0.25em,
+		top=0.25em,
+%		before skip=\spaceabove,
+%		after skip=\spacebelow,
+		left skip=0pt,
+		right skip=0pt,
+		boxsep=0pt,
+		width=\textwidth,
+		boxrule=0pt
+	},
+	break/.style={
+		default,
+		breakable
+	},
+	nobreak/.style={
+		default
+	}
+}
+
+% Default keytheorems environment that also does some inheritance
+\declarekeytheoremstyle{default}{
+	postheadhook=\postheadhook,
+	prefoothook=\prefoothook,
+	bodyfont=\normalfont,
+%	margin=0.25em
+}
+
+\declarekeytheoremstyle{compact}{
+	inherit-style=default,
 %	spaceabove=\spaceabove,
 	spacebelow=\spacebelow,
-	postheadhook=\postheadhook,
-	prefoothook=\prefoothook,
-	margin=0.25em,
 	bodyfont=\itshape
-]{compact}
+}
 
 
 \declaretheoremstyle[
-	spaceabove=\spaceabove,
-	spacebelow=\spacebelow,
-	postheadhook=\postheadhook,
-	prefoothook=\prefoothook,
-	margin=0.25em,
-	bodyfont=\normalfont,
-	shaded={%
-		bgcolor=gray!\transparency,
-		rulecolor=black,
-		rulewidth=\rulewidth
+	inherit-style=default,
+	tcolorbox-no-titlebar={
+		break,
+		colback=gray!\transparency
 	}
 ]{shaded}
 
 \declaretheoremstyle[
-	spaceabove=\spaceabove,
-	spacebelow=\spacebelow,
-	postheadhook=\postheadhook,
-	prefoothook=\prefoothook,
-	margin=0.25em,
+	inherit-style=default,
 	bodyfont=\itshape,
-	shaded={%
-		bgcolor=gray!\transparency,
-		rulecolor=black,
-		rulewidth=\rulewidth
+	tcolorbox-no-titlebar={
+		break,
+		colback=gray!\transparency
 	}
 ]{shaded-it}
 
 
 \declaretheoremstyle[
-%	spaceabove=\spaceabove,
-%	spacebelow=\spacebelow,
-	postheadhook=\postheadhook,
-	prefoothook=\prefoothook,
-	margin=0.25em,
-	bodyfont=\normalfont,
-	shaded={%
-		bgcolor=gray!\transparency,
-		rulecolor=black,
-		rulewidth=\rulewidth
+	inherit-style=default,
+	tcolorbox-no-titlebar={
+		nobreak,
+		colback=gray!\transparency
 	}
 ]{shaded-nobreak}
 
+
 \declaretheoremstyle[
-%	spaceabove=\spaceabove,
-%	spacebelow=\spacebelow,
-	postheadhook=\postheadhook,
-	prefoothook=\prefoothook,
-	margin=0.25em,
-	shaded={%
-		bgcolor=gray!\transparency,
-		rulecolor=black,
-		rulewidth=\rulewidth
+	inherit-style=default,
+	bodyfont=\itshape,
+	tcolorbox-no-titlebar={
+		nobreak,
+		colback=gray!\transparency
 	}
 ]{shaded-nobreak-it}
 
 
 \declaretheoremstyle[
-	spaceabove=\spaceabove,
-	spacebelow=\spacebelow,
-	postheadhook=\postheadhook,
-	prefoothook=\prefoothook,
-	margin=0.25em,
-	bodyfont=\normalfont,
-	shaded={%
-		bgcolor=almond!\transparency,
-		rulecolor=black,
-		rulewidth=\rulewidth
+	inherit-style=default,
+	tcolorbox-no-titlebar={
+		break,
+		colback=almond!\transparency
 	}
 ]{shaded-almond}
 
 
 \declaretheoremstyle[
-	spaceabove=\spaceabove,
-	spacebelow=\spacebelow,
-	postheadhook=\postheadhook,
-	prefoothook=\prefoothook,
-	margin=0.25em,
-	bodyfont=\normalfont,
-	shaded={%
-		bgcolor=almond!\transparency,
-		rulecolor=black,
-		rulewidth=\rulewidth
+	inherit-style=default,
+	tcolorbox-no-titlebar={
+		nobreak,
+		colback=almond!\transparency
 	}
 ]{shaded-almond-nobreak}
 
 
 \declaretheoremstyle[
-	spaceabove=\spaceabove,
-	spacebelow=\spacebelow,
-	postheadhook=\postheadhook,
-	prefoothook=\prefoothook,
-	margin=0.25em,
-	bodyfont=\normalfont,
-	shaded={%
-		bgcolor=\primarycolor!\transparency,
-		rulecolor=black,
-		rulewidth=\rulewidth
+	inherit-style=default,
+	tcolorbox-no-titlebar={
+		nobreak,
+		colback=\primarycolor!\transparency
 	}
 ]{shaded-primary-nobreak}
 
 \declaretheoremstyle[
-	spaceabove=\spaceabove,
-	spacebelow=\spacebelow,
-	postheadhook=\postheadhook,
-	prefoothook=\prefoothook,
-	margin=0.25em,
-	bodyfont=\normalfont,
-	shaded={%
-		bgcolor=\secondarycolor!\transparency,
-		rulecolor=black,
-		rulewidth=\rulewidth
+	inherit-style=default,
+	tcolorbox-no-titlebar={
+		nobreak,
+		colback=\secondarycolor!\transparency
 	}
 ]{shaded-secondary-nobreak}
 
@@ -326,7 +320,6 @@
 ]{example, conjecture}
 
 \declaretheorem[%
-%	numberwithin=section,
 	style=shaded
 ]{question}
 
@@ -348,8 +341,11 @@
 ]{readersnote}
 
 
+
 % Algorithm environment.
 \usepackage[normalem]{ulem}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins,breakable}
 \newtcolorbox[auto counter]{boxedalgorithm}[3]{%
 	label=#2,
 	%
@@ -369,7 +365,7 @@
 	%
 	attach title to upper={#3},
 	coltitle=black,
-	title={\uline{\textbf{Algorithm \thetcbcounter}{#1}\hfill}},
+	title={\uline{\makebox[\linewidth][l]{\textbf{Algorithm \thetcbcounter}{#1}}}},
 	%
 	breakable
 }
@@ -426,7 +422,7 @@
 				\textit{(\insetalgorithm@name)}%
 			}.%
 		}{\insetalgorithm@label}{%
-			\ifthenelse{\equal{\insetalgorithm@description}{}}{\\[-0.75em]%
+			\ifthenelse{\equal{\insetalgorithm@description}{}}{\\[-1em]%
 			}{%
                 \\[0.5em]\insetalgorithm@description%
 			}
