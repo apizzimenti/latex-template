@@ -1,15 +1,26 @@
 
-\documentclass[notheorems,noamsthm,169]{beamer}
+\documentclass[%
+	notheorems,
+	noamsthm,
+	aspectratio=169,
+%	draft
+]{beamer}
+
 \input{main.preamble.tex}
 
-\title{Random complexes in three or more dimensions}
-\author{Anthony E. Pizzimenti}
-%\date{August
+\title[Random complexes]{Random complexes in three or more dimensions}
+\subtitle[]{}
+\author[]{Anthony E. Pizzimenti}
+\date{August 28\textsuperscript{th}, 2026}
 
 \begin{document}
 
-	\begin{frame}
-		\maketitle
-	\end{frame}
+	\input{sections/frontmatter.tex}
+	
+	\section*{References}
+		\begin{multicols}{2}[\frametitle{\insertsection} \usebeamertemplate{frametitle}]
+			\sloppy
+			\printbibliography
+		\end{multicols}
 
 \end{document}

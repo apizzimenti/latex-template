@@ -1,0 +1,12 @@
+
+\begin{frame}[plain]
+	\tikzset{
+		padless/.style={inner sep=0pt}
+	}
+    \begin{tikzpicture}[overlay,remember picture]
+    	\node[padless, anchor=west] at ($(current page.west)+(\defaultbeamermargin,0)$) (title) {\color{\secondarycolor}\LARGE\textbf\inserttitle};
+    	\node[padless, anchor=north west] at ($(title.south west)+(0,-0.5in)$) (authors) {\insertauthor};
+    	\node[padless, anchor=north west] (date) at (authors.south west) {\footnotesize\insertdate};
+    \end{tikzpicture}
+\end{frame}
+
