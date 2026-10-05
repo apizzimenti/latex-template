@@ -2,7 +2,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%% DOCUMENT SETUP                                                         %%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\usepackage[showframe]{geometry}
+\usepackage[pass]{geometry}
 \usepackage[pdfusetitle]{hyperref}
 \usepackage{placeins}
 
@@ -60,7 +60,7 @@
 % Lets us literally flag a paragraph.
 \usepackage{tabto, marginfix, fontawesome}
 \def\flag{\protect\flag}
-\def\flag{\tabto*{-0.25in}\makebox[0cm]{{\color{black}\normalfont\color{red}\faFlag}}\tabto*{\TabPrevPos}}
+\def\flag{\tabto*{-0.25in}\makebox[0cm]{{\color{black\lowercase}\faFlag}}\tabto*{\TabPrevPos}}
 
 
 % Annotations and definitions.
@@ -90,21 +90,27 @@
 %%%% VISUALS                                                                %%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage{quiver, caption, tikz, xcolor, wrapfig}
-\usetikzlibrary{graphs, calc, decorations, decorations.markings, patterns, patterns.meta}
+\usetikzlibrary{
+%	graphs,
+%	graphdrawing,
+	shapes.misc,
+	calc,
+	decorations,
+	decorations.markings,
+	decorations.pathreplacing,
+	patterns,
+	patterns.meta,
+	arrows,
+	positioning,
+	fit,
+	ext.paths.ortho
+}
 
 
 % Captions.
 \captionsetup{format=plain, font={it, footnotesize}}
 \setlength{\belowcaptionskip}{-1em}
 
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%% COLORS                                                                 %%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\definecolor{almond}{rgb}{0.94, 0.87, 0.8}
-\definecolor{antiquewhite}{rgb}{0.98, 0.92, 0.84}
 
 % IBM Design Library palette. (Colorblind-safe) %% https://tinyurl.com/27azp7vh
 \definecolor{ibm-gold}{HTML}{ffb000}
@@ -130,13 +136,13 @@
 
 
 % Paul Tol's vibrant palette. (Colorblind-safe) %% https://tinyurl.com/2b9mab2z
-\definecolor{tol-vibrant-blue}{RGB}{0,119,187}
-\definecolor{tol-vibrant-cyan}{RGB}{51,187,238}
-\definecolor{tol-vibrant-teal}{RGB}{0,153,136}
-\definecolor{tol-vibrant-orange}{RGB}{238,119,51}
-\definecolor{tol-vibrant-red}{RGB}{204,51,17}
-\definecolor{tol-vibrant-magenta}{RGB}{238,51,119}
-\definecolor{tol-vibrant-grey}{RGB}{187,187,187}
+\definecolor{tol-v-blue}{RGB}{0,119,187}
+\definecolor{tol-v-cyan}{RGB}{51,187,238}
+\definecolor{tol-v-teal}{RGB}{0,153,136}
+\definecolor{tol-v-orange}{RGB}{238,119,51}
+\definecolor{tol-v-red}{RGB}{204,51,17}
+\definecolor{tol-v-magenta}{RGB}{238,51,119}
+\definecolor{tol-v-grey}{RGB}{187,187,187}
 
 
 % Okabe and Ito's palette. (Colorblind-safe) %% https://tinyurl.com/22lwpexl
@@ -151,11 +157,14 @@
 % ArXiV color (RIP).
 \definecolor{arxiv}{HTML}{AE2A24}
 
+% Some code colors.
+\definecolor{almond}{rgb}{0.94, 0.87, 0.8}
+
 
 % Define a color theme; use Paul Tol's dark, high-contrast palette.
-\def\primarycolor{tol-hc-yellow}
-\def\secondarycolor{tol-hc-blue}
-\def\tertiarycolor{tol-hc-red}
+\def\primarycolor{tol-mc-darkred}
+\def\secondarycolor{tol-mc-lightblue}
+\def\tertiarycolor{tol-mc-lightred}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -224,7 +233,7 @@
 	inherit-style=default,
 	tcolorbox-no-titlebar={
 		break,
-		colback=gray!\transparency
+		colback=tol-v-grey!\transparency
 	}
 ]{shaded}
 
@@ -233,7 +242,7 @@
 	bodyfont=\itshape,
 	tcolorbox-no-titlebar={
 		break,
-		colback=gray!\transparency
+		colback=tol-v-grey!\transparency
 	}
 ]{shaded-it}
 
@@ -242,7 +251,7 @@
 	inherit-style=default,
 	tcolorbox-no-titlebar={
 		nobreak,
-		colback=gray!\transparency
+		colback=tol-v-grey!\transparency
 	}
 ]{shaded-nobreak}
 
@@ -252,7 +261,7 @@
 	bodyfont=\itshape,
 	tcolorbox-no-titlebar={
 		nobreak,
-		colback=gray!\transparency
+		colback=tol-v-grey!\transparency
 	}
 ]{shaded-nobreak-it}
 
@@ -282,6 +291,14 @@
 		colback=\primarycolor!\transparency
 	}
 ]{shaded-primary-nobreak}
+
+\declaretheoremstyle[
+	inherit-style=default,
+	tcolorbox-no-titlebar={
+		break,
+		colback=\primarycolor!\transparency
+	}
+]{shaded-primary}
 
 \declaretheoremstyle[
 	inherit-style=default,
@@ -325,7 +342,7 @@
 
 \declaretheorem[%
 %	sharenumber=question,
-	style=shaded-almond
+	style=shaded-primary
 ]{goal}
 
 \declaretheorem[%
@@ -341,11 +358,8 @@
 ]{readersnote}
 
 
-
 % Algorithm environment.
 \usepackage[normalem]{ulem}
-\usepackage{tcolorbox}
-\tcbuselibrary{skins,breakable}
 \newtcolorbox[auto counter]{boxedalgorithm}[3]{%
 	label=#2,
 	%
@@ -365,7 +379,7 @@
 	%
 	attach title to upper={#3},
 	coltitle=black,
-	title={\uline{\makebox[\linewidth][l]{\textbf{Algorithm \thetcbcounter}{#1}}}},
+	title={\uline{\textbf{Algorithm \thetcbcounter}{#1}\hfill}},
 	%
 	breakable
 }
@@ -394,9 +408,10 @@
 
 
 % List-like algorithm setup.
-\newlist{enumalgorithm}{enumerate}{2}
-\setlist[enumalgorithm,1]{nosep, topsep=0.25em, itemsep=2.5pt, label=(\arabic*), leftmargin=*}
-\setlist[enumalgorithm,2]{topsep=2.5pt, parsep=0pt, itemsep=2.5pt, label=(\alph*), ref=(\arabic{enumalgorithmi}\alph*)}
+\newlist{enumalgorithm}{enumerate}{3}
+\setlist[enumalgorithm,1]{nosep, topsep=0.25em, itemsep=2.5pt, label*=(\arabic*), leftmargin=*}
+\setlist[enumalgorithm,2]{topsep=2.5pt, parsep=0pt, itemsep=2.5pt, label=(\arabic{enumalgorithmi}.\arabic*), ref=(\arabic{enumalgorithmi}.\arabic*)}
+\setlist[enumalgorithm,3]{topsep=2.5pt, parsep=0pt, itemsep=2.5pt, label=(\arabic{enumalgorithmi}.\arabic{enumalgorithmii}.\arabic*), ref=(\arabic{enumalgorithmi}.\arabic{enumalgorithmii}.\arabic*)}
 
 
 % Alternate description environment.
@@ -419,12 +434,12 @@
 		\setkeys{insetalgorithm@keys}{name={},label=algorithm,description={},#1}
 		\begin{boxedalgorithm}{
 			\ifthenelse{\equal{\insetalgorithm@name}{}}{}{%
-				\textit{(\insetalgorithm@name)}%
-			}.%
+				\textit{(\insetalgorithm@name)}.%
+			}%
 		}{\insetalgorithm@label}{%
 			\ifthenelse{\equal{\insetalgorithm@description}{}}{\\[-1em]%
 			}{%
-                \\[0.5em]\insetalgorithm@description%
+                \\[0.5em]\textit{\insetalgorithm@description}%
 			}
 		}
 			\begin{enumalgorithm}%
@@ -435,6 +450,45 @@
 	}
 
 \makeatother
+
+
+
+% Code listings.
+\usepackage[final]{listings}
+\usepackage{ascii}
+
+\lstdefinelanguage{ATEAMS}{
+	language = {C++},
+	morekeywords = {%
+		Cubical,Bernoulli,Chain,State
+	}
+}
+
+\lstdefinestyle{shaded}{
+	frame=single,
+	rulecolor=\color{tol-v-grey!\transparency},
+	%
+	basicstyle=\ttfamily\small,							% Basic font style
+	%
+	framexleftmargin=2.5pt,								% Frame margins
+	framextopmargin=1.5pt,
+	framexbottommargin=1.5pt,
+	%
+	keywordstyle=\bfseries\color{tol-v-blue},			% Text styles
+	numberstyle=\footnotesize\color{tol-v-grey},
+	backgroundcolor=\color{tol-v-grey!\transparency},
+	commentstyle=\itshape\color{tol-v-teal},
+	%
+	tabsize=2,
+	showspaces=false,
+	numbers=left,
+	numberstyle=\ttfamily\footnotesize\color{tol-v-grey},
+%	stepnumber=5
+}
+
+\lstset{
+	style=shaded
+}
 
 
 
@@ -449,9 +503,8 @@
 	sortcites,
 	maxnames=3,
 	date=year,
-	arxiv=abs,
 	giveninits=true,
-	terseinits=true
+	terseinits=true,
 ]{biblatex}
 
 % Italicized titles
@@ -531,22 +584,28 @@
 \DeclareMathOperator{\rank}{\mathrm{rank}}		% algebraic rank
 \DeclareMathOperator{\Range}{\mathrm{Range}}	% range
 
-\DeclareMathOperator{\Length}{\mathrm{Length}}		% length
-\DeclareMathOperator{\Area}{\mathrm{Area}}			% area
-\DeclareMathOperator{\Volume}{\mathrm{Vol}}			% volume
-\DeclareMathOperator{\Perimeter}{\mathrm{Perim}}	% perimeter
-
 \newcommand{\inverse}[1]{{#1}^{-1}}		% inverse
+
 \newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}		% better modulus
 
-\DeclareMathOperator{\Int}{\mathrm{Int}}	% topological interior
-\DeclareMathOperator{\Bd}{\mathrm{Bd}}		% topological boundary
-\DeclareMathOperator{\Cl}{\mathrm{Cl}}		% topological closure
+\newcommand{\Reduced}{\widetilde{H}}						% reduced homology
+\newcommand{\ReducedPersistent}{\widetilde{\mathit{PH}}}	% reduced persistent homology
 
 \let\into\hookrightarrow		% injective function
 \let\onto\twoheadrightarrow		% surjective function
 \let\lto\longrightarrow			% longer arrow (it's prettier)
 \let\lmapsto\longmapsto         % longer mapsto arrow
+
+\DeclareMathOperator{\CPP}{\bm{\mathsf{CPP}}}		% coupled plaquette percolation
+\DeclareMathOperator{\UST}{\bm{\mathsf{UST}}}       % uniform spanning tree distribution
+\DeclareMathOperator{\USF}{\bm{\mathsf{USF}}}       % uniform spanning forest distribution
+\DeclareMathOperator{\PLGT}{\bm{\mathsf{PLGT}}}     % Potts lattice gauge theory
+\DeclareMathOperator{\PRCM}{\bm{\mathsf{PRCM}}}     % Plaquette random cluster model
+\DeclareMathOperator{\PK}{\bm{\mathsf{PK}}}         % Coupling
+
+\DeclareMathOperator{\H}{\mathbf{H}}        % Hamiltonian
+
+\newcommand{\skeleton}[2]{{#1}^{(#2)}}		% skeleton
 
 \let\complement\overline	% complement
 
@@ -574,6 +633,9 @@
 \newcommand{\qqand}{\qquad \text{and} \qquad}
 \newcommand{\qqbut}{\qquad \text{but} \qquad}
 \newcommand{\qqor}{\qquad \text{or} \qquad}
+
+\newcommand{\ATEAMS}{\textsf{ATEAMS}\xspace}
+\newcommand{\ATEAMSpp}{\textsf{ATEAMS++}\xspace}
 
 
 
