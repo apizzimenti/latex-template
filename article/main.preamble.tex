@@ -4,7 +4,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage[pass]{geometry}
 \usepackage[pdfusetitle]{hyperref}
-\usepackage{placeins}
+\usepackage{placeins, changepage}
 
 \usepackage[titles]{tocloft}
 \renewcommand\contentsname{}
@@ -233,7 +233,7 @@
 	inherit-style=default,
 	tcolorbox-no-titlebar={
 		break,
-		colback=tol-v-grey!\transparency
+		colback=gray!\transparency
 	}
 ]{shaded}
 
@@ -242,7 +242,7 @@
 	bodyfont=\itshape,
 	tcolorbox-no-titlebar={
 		break,
-		colback=tol-v-grey!\transparency
+		colback=gray!\transparency
 	}
 ]{shaded-it}
 
@@ -251,7 +251,7 @@
 	inherit-style=default,
 	tcolorbox-no-titlebar={
 		nobreak,
-		colback=tol-v-grey!\transparency
+		colback=gray!\transparency
 	}
 ]{shaded-nobreak}
 
@@ -261,7 +261,7 @@
 	bodyfont=\itshape,
 	tcolorbox-no-titlebar={
 		nobreak,
-		colback=tol-v-grey!\transparency
+		colback=gray!\transparency
 	}
 ]{shaded-nobreak-it}
 
@@ -379,6 +379,7 @@
 	%
 	attach title to upper={#3},
 	coltitle=black,
+	colback=gray!\transparency,
 	title={\uline{\textbf{Algorithm \thetcbcounter}{#1}\hfill}},
 	%
 	breakable
@@ -402,6 +403,7 @@
 	%
 	attach title to upper,
 	coltitle=black,
+	colback=gray!\transparency,
 	%
 	breakable
 }
@@ -451,6 +453,20 @@
 
 \makeatother
 
+% "Alternate" environment that allows delineates an alternate phrasing or formatting of a block of text.
+\makeatletter
+
+\newenvironment{alternate}
+	{%
+		\begin{adjustwidth}{0.25in}{0pt}
+			\itshape\color{tol-v-blue}\textbf{Alt:}%
+	}
+	{%
+		\end{adjustwidth}
+	}
+
+\makeatother
+
 
 
 % Code listings.
@@ -476,7 +492,7 @@
 	%
 	keywordstyle=\bfseries\color{tol-v-blue},			% Text styles
 	numberstyle=\footnotesize\color{tol-v-grey},
-	backgroundcolor=\color{tol-v-grey!\transparency},
+	backgroundcolor=\color{gray!\transparency},
 	commentstyle=\itshape\color{tol-v-teal},
 	%
 	tabsize=2,
